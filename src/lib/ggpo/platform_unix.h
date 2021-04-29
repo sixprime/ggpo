@@ -5,13 +5,12 @@
  * in the LICENSE file.
  */
 
-#ifndef _GGPO_LINUX_H_
-#define _GGPO_LINUX_H_
+#ifndef _GGPO_UNIX_H_
+#define _GGPO_UNIX_H_
 
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/time.h>
-#include <ctime>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -50,7 +49,7 @@ public:  // functions
    static ProcessID GetProcessID() { return getpid(); }
    static void AssertFailed(char *msg) { }
    static uint32_t GetCurrentTimeMS();
-   static void SleepMS(int ms) { usleep(ms * 1000); }
+   static void SleepMS(int milliseconds);
    static void CreateDirectory(const char* pathname, const void* junk);
 };
 
