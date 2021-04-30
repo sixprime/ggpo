@@ -11,7 +11,7 @@ int Platform::GetConfigInt(const char *name)
 {
   if (const char *env_p = std::getenv(name))
   {
-    return atoi(buf);
+    return atoi(env_p);
   }
   return 0;
 }
@@ -20,7 +20,7 @@ bool Platform::GetConfigBool(const char *name)
 {
   if (const char *env_p = std::getenv(name))
   {
-    return atoi(buf) != 0 || _stricmp(buf, "true") == 0;
+    return atoi(env_p) != 0 || strncmp(env_p, "true", 4) == 0;
   }
   return false;
 }

@@ -33,3 +33,9 @@
 *.exe
 *.out
 *.app
+*.vcxproj
+*.filters
+*.pdb
+
+# Custom
+build/

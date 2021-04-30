@@ -405,7 +405,7 @@ UdpProtocol::Log(const char *fmt, ...)
    size_t offset;
    va_list args;
 
-   sprintf_s(buf, ARRAY_SIZE(buf), "udpproto%d | ", _queue);
+   snprintf(buf, ARRAY_SIZE(buf), "udpproto%d | ", _queue);
    offset = strlen(buf);
    va_start(args, fmt);
    vsnprintf(buf + offset, ARRAY_SIZE(buf) - offset - 1, fmt, args);

@@ -116,7 +116,7 @@ ggpo_perfmon_dlgproc(HWND hwndDlg, UINT uMsg, WPARAM, LPARAM lParam)
    case WM_INITDIALOG:
       {
          char pid[64];
-         sprintf_s(pid, ARRAYSIZE(pid), "%d", GetProcessID());
+         snprintf(pid, ARRAY_SIZE(pid), "%d", GetProcessID());
          SetWindowTextA(GetDlgItem(hwndDlg, IDC_PID), pid);   
          return TRUE;
       }
@@ -221,11 +221,11 @@ ggpoutil_perfmon_update(GGPOSession *ggpo, GGPOPlayerHandle players[], int num_p
          char fLocal[128], fRemote[128], fBandwidth[128];
          char msLag[128], frameLag[128];
  
-         sprintf_s(msLag, ARRAYSIZE(msLag), "%d ms", stats.network.ping);
-         sprintf_s(frameLag, ARRAYSIZE(frameLag), "%.1f frames", stats.network.ping ? stats.network.ping * 60.0 / 1000 : 0);
-         sprintf_s(fBandwidth, ARRAYSIZE(fBandwidth), "%.2f kilobytes/sec", stats.network.kbps_sent / 8.0);
-         sprintf_s(fLocal, ARRAYSIZE(fLocal), "%d frames", stats.timesync.local_frames_behind);
-         sprintf_s(fRemote, ARRAYSIZE(fRemote), "%d frames", stats.timesync.remote_frames_behind);
+         snprintf(msLag, ARRAY_SIZE(msLag), "%d ms", stats.network.ping);
+         snprintf(frameLag, ARRAY_SIZE(frameLag), "%.1f frames", stats.network.ping ? stats.network.ping * 60.0 / 1000 : 0);
+         snprintf(fBandwidth, ARRAY_SIZE(fBandwidth), "%.2f kilobytes/sec", stats.network.kbps_sent / 8.0);
+         snprintf(fLocal, ARRAY_SIZE(fLocal), "%d frames", stats.timesync.local_frames_behind);
+         snprintf(fRemote, ARRAY_SIZE(fRemote), "%d frames", stats.timesync.remote_frames_behind);
          SetWindowTextA(GetDlgItem(_dialog, IDC_NETWORK_LAG), msLag);
          SetWindowTextA(GetDlgItem(_dialog, IDC_FRAME_LAG), frameLag);
          SetWindowTextA(GetDlgItem(_dialog, IDC_BANDWIDTH), fBandwidth);

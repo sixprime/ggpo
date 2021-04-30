@@ -103,7 +103,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
    int offset = 1, local_player = 0;
    WSADATA wd = { 0 };
    wchar_t wide_ip_buffer[128];
-   unsigned int wide_ip_buffer_size = (unsigned int)ARRAYSIZE(wide_ip_buffer);
+   unsigned int wide_ip_buffer_size = (unsigned int)ARRAY_SIZE(wide_ip_buffer);
 
    WSAStartup(MAKEWORD(2, 2), &wd);
    POINT window_offsets[] = {
@@ -134,7 +134,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
          Syntax();
          return 1;
       }
-      wcstombs_s(nullptr, host_ip, ARRAYSIZE(host_ip), wide_ip_buffer, _TRUNCATE);
+      wcstombs_s(nullptr, host_ip, ARRAY_SIZE(host_ip), wide_ip_buffer, _TRUNCATE);
       VectorWar_InitSpectator(hwnd, local_port, num_players, host_ip, host_port);
    } else {
       GGPOPlayer players[GGPO_MAX_SPECTATORS + GGPO_MAX_PLAYERS];
@@ -156,7 +156,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             Syntax();
             return 1;
          }
-         wcstombs_s(nullptr, players[i].u.remote.ip_address, ARRAYSIZE(players[i].u.remote.ip_address), wide_ip_buffer, _TRUNCATE);
+         wcstombs_s(nullptr, players[i].u.remote.ip_address, ARRAY_SIZE(players[i].u.remote.ip_address), wide_ip_buffer, _TRUNCATE);
       }
       // these are spectators...
       int num_spectators = 0;
@@ -166,7 +166,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             Syntax();
             return 1;
          }
-         wcstombs_s(nullptr, players[i].u.remote.ip_address, ARRAYSIZE(players[i].u.remote.ip_address), wide_ip_buffer, _TRUNCATE);
+         wcstombs_s(nullptr, players[i].u.remote.ip_address, ARRAY_SIZE(players[i].u.remote.ip_address), wide_ip_buffer, _TRUNCATE);
          i++;
          num_spectators++;
       }

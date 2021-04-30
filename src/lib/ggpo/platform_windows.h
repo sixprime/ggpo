@@ -8,6 +8,8 @@
 #ifndef _GGPO_WINDOWS_H_
 #define _GGPO_WINDOWS_H_
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <winsock2.h>
 #include <WS2tcpip.h>
 #include <windows.h>
