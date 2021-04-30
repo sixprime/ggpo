@@ -75,7 +75,6 @@ Udp::SendTo(char *buffer, int len, int flags, struct sockaddr *dst, int destlen)
    if (res == SOCKET_ERROR) {
 #ifdef _WIN32
       DWORD err = WSAGetLastError();
-      DWORD e2 = WSAENOTSOCK;
 #else
       int err = 1;
 #endif

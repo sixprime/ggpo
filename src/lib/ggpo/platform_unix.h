@@ -49,9 +49,13 @@ public:  // types
 public:  // functions
    static ProcessID GetProcessID() { return getpid(); }
    static void AssertFailed(char *msg) { }
+
+   static int GetConfigInt(const char* name);
+   static bool GetConfigBool(const char* name);
+
    static uint32_t GetCurrentTimeMS();
    static void SleepMS(int milliseconds);
-   static void CreateDirectory(const char* pathname, const void* junk);
+   static void CreateDir(const char* pathname);
 };
 
 #endif

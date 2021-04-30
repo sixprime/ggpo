@@ -25,9 +25,9 @@ public:  // functions
    static int GetConfigInt(const char* name);
    static bool GetConfigBool(const char* name);
 
-   static uint32_t GetCurrentTimeMS() { return timeGetTime(); }
-   static void SleepMS(int ms) { Sleep(ms); }
-   static void CreateDirectory(const char* pathname, const void* junk) { CreateDirectoryA(pathname, junk); }
+   static uint32_t GetCurrentTimeMS();
+   static void SleepMS(int ms);
+   static void CreateDir(const char* pathname);
 };
 
 #endif

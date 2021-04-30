@@ -167,7 +167,7 @@ GDIRenderer::DrawConnectState(HDC hdc, Ship &ship, PlayerConnectionInfo &info)
          break;
 
       case Disconnecting:
-         sprintf(status, "Waiting for player...");
+         sprintf_s(status, ARRAYSIZE(status), "Waiting for player...");
          progress = (GetCurrentTimeMS() - info.disconnect_start) * 100 / info.disconnect_timeout;
          break;
    }

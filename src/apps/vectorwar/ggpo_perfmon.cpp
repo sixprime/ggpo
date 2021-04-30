@@ -116,7 +116,7 @@ ggpo_perfmon_dlgproc(HWND hwndDlg, UINT uMsg, WPARAM, LPARAM lParam)
    case WM_INITDIALOG:
       {
          char pid[64];
-         sprintf(pid, "%d", GetProcessID());
+         sprintf_s(pid, ARRAYSIZE(pid), "%d", GetProcessID());
          SetWindowTextA(GetDlgItem(hwndDlg, IDC_PID), pid);   
          return TRUE;
       }
@@ -217,7 +217,7 @@ ggpoutil_perfmon_update(GGPOSession *ggpo, GGPOPlayerHandle players[], int num_p
       InvalidateRect(GetDlgItem(_dialog, IDC_FAIRNESS_GRAPH), NULL, FALSE);
       InvalidateRect(GetDlgItem(_dialog, IDC_NETWORK_GRAPH), NULL, FALSE);
 
-      if (now > _last_text_update_time + 500) {
+      if (now > uint32_t(_last_text_update_time + 500)) {
          char fLocal[128], fRemote[128], fBandwidth[128];
          char msLag[128], frameLag[128];
  

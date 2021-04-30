@@ -7,13 +7,33 @@
 
 #include "platform_unix.h"
 
-uint32_t Platform::GetCurrentTimeMS() {
-  struct timespec ts;
-  clock_gettime(CLOCK_MONOTONIC, &ts);
-  return (ts.tv_sec * 1000) + (ts.tv_nsec / (1000*1000));
+int Platform::GetConfigInt(const char *name)
+{
+  if (const char *env_p = std::getenv(name))
+  {
+    return atoi(buf);
+  }
+  return 0;
 }
 
-void Platform::SleepMS(int milliseconds) {
+bool Platform::GetConfigBool(const char *name)
+{
+  if (const char *env_p = std::getenv(name))
+  {
+    return atoi(buf) != 0 || _stricmp(buf, "true") == 0;
+  }
+  return false;
+}
+
+uint32_t Platform::GetCurrentTimeMS()
+{
+  struct timespec ts;
+  clock_gettime(CLOCK_MONOTONIC, &ts);
+  return (ts.tv_sec * 1000) + (ts.tv_nsec / (1000 * 1000));
+}
+
+void Platform::SleepMS(int milliseconds)
+{
 #if _POSIX_C_SOURCE >= 199309L
   struct timespec ts;
   ts.tv_sec = milliseconds / 1000;
@@ -24,10 +44,12 @@ void Platform::SleepMS(int milliseconds) {
 #endif
 }
 
-void Platform::CreateDirectory(const char* pathname, const void* junk) {
+void Platform::CreateDir(const char *pathname)
+{
   mkdir(pathname, -1);
 }
 
-static void __attribute__((constructor)) DllMain() {
-   srand(Platform::GetCurrentTimeMS() + Platform::GetProcessID());
+static void __attribute__((constructor)) DllMain()
+{
+  srand(Platform::GetCurrentTimeMS() + Platform::GetProcessID());
 }

@@ -186,8 +186,8 @@ SyncTestBackend::BeginLog(int saving)
    EndLog();
 
    char filename[MAX_PATH];
-   Platform::CreateDirectory("synclogs", NULL);
-   sprintf(filename, "synclogs\\%s-%04d-%s.log",
+   Platform::CreateDir("synclogs");
+   sprintf_s(filename, ARRAYSIZE(filename), "synclogs\\%s-%04d-%s.log",
            saving ? "state" : "log",
            _sync.GetFrameCount(),
            _rollingback ? "replay" : "original");
