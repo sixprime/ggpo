@@ -17,11 +17,19 @@ Platform::GetConfigInt(const char* name)
    return atoi(buf);
 }
 
-bool Platform::GetConfigBool(const char* name)
+bool
+Platform::GetConfigBool(const char* name)
 {
    char buf[1024];
    if (GetEnvironmentVariable(name, buf, ARRAY_SIZE(buf)) == 0) {
       return false;
    }
    return atoi(buf) != 0 || _stricmp(buf, "true") == 0;
+}
+
+BOOL WINAPI
+DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+   srand(Platform::GetCurrentTimeMS() + Platform::GetProcessID());
+   return TRUE;
 }
