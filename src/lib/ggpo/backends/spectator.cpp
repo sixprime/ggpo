@@ -33,7 +33,8 @@ SpectatorBackend::SpectatorBackend(GGPOSessionCallbacks *cb,
    /*
     * Init the host endpoint
     */
-   _host.Init(&_udp, _poll, 0, hostip, hostport, NULL);
+   // TODO(amp) : spectator mode
+   //_host.Init(&_udp, _poll, 0, hostip, hostport, NULL);
    _host.Synchronize();
 
    /*

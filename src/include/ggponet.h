@@ -41,7 +41,8 @@ extern "C" {
 #  define GGPO_API
 #endif
 
-#define GGPO_MAX_PLAYERS                  4
+// TODO(amp) : changed max players from 4 -> 10
+#define GGPO_MAX_PLAYERS                  10
 #define GGPO_MAX_PREDICTION_FRAMES        8
 #define GGPO_MAX_SPECTATORS              32
 
@@ -85,14 +86,7 @@ typedef struct GGPOPlayer {
    int               size;
    GGPOPlayerType    type;
    int               player_num;
-   union {
-      struct {
-      } local;
-      struct {
-         char           ip_address[32];
-         unsigned short port;
-      } remote;
-   } u;
+   //unsigned short    port;
 } GGPOPlayer;
 
 typedef struct GGPOLocalEndpoint {
@@ -326,7 +320,7 @@ typedef struct GGPONetworkStats {
  * per session is fixed.  If you need to change the number of players or any player
  * disconnects, you must start a new session.
  *
- * input_size - The size of the game inputs which will be passsed to ggpo_add_local_input.
+ * input_size - The size of the game inputs which will be passed to ggpo_add_local_input.
  *
  * local_port - The port GGPO should bind to for UDP traffic.
  */
@@ -335,7 +329,8 @@ GGPO_API GGPOErrorCode ggpo_start_session(GGPOSession **session,
                                           const char *game,
                                           int num_players,
                                           int input_size,
-                                          unsigned short localport);
+                                          const char *relay_ip,
+                                          unsigned short relay_port);
 
 
 /*
@@ -351,7 +346,8 @@ GGPO_API GGPOErrorCode ggpo_start_session(GGPOSession **session,
  */
 GGPO_API GGPOErrorCode ggpo_add_player(GGPOSession *session,
                                        GGPOPlayer *player,
-                                       GGPOPlayerHandle *handle);
+                                       GGPOPlayerHandle *handle,
+                                       GGPOPlayerHandle *local_player_handle);
 
 
 /*

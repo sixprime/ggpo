@@ -55,7 +55,7 @@ SyncTestBackend::DoPoll(int timeout)
 }
 
 GGPOErrorCode
-SyncTestBackend::AddPlayer(GGPOPlayer *player, GGPOPlayerHandle *handle)
+SyncTestBackend::AddPlayer(GGPOPlayer *player, GGPOPlayerHandle *handle, GGPOPlayerHandle* local_player_handle)
 {
    if (player->player_num < 1 || player->player_num > _num_players) {
       return GGPO_ERRORCODE_PLAYER_OUT_OF_RANGE;

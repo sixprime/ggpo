@@ -11,15 +11,12 @@
 SOCKET
 CreateSocket(uint16 bind_port, int retries)
 {
-   SOCKET s;
-   sockaddr_in sin;
-   uint16 port;
    int optval = 1;
    struct linger loptval;
    loptval.l_onoff = 0;
    loptval.l_linger = 0;
 
-   s = socket(AF_INET, SOCK_DGRAM, 0);
+   SOCKET s = socket(AF_INET, SOCK_DGRAM, 0);
    setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (const char *)&optval, sizeof optval);
    setsockopt(s, SOL_SOCKET, SO_LINGER, (const char *)&loptval, sizeof loptval);
 
@@ -27,9 +24,10 @@ CreateSocket(uint16 bind_port, int retries)
    u_long iMode = 1;
    ioctlsocket(s, FIONBIO, &iMode);
 
+   sockaddr_in sin;
    sin.sin_family = AF_INET;
    sin.sin_addr.s_addr = htonl(INADDR_ANY);
-   for (port = bind_port; port <= bind_port + retries; port++) {
+   for (uint16 port = bind_port; port <= bind_port + retries; port++) {
       sin.sin_port = htons(port);
       if (bind(s, (sockaddr *)&sin, sizeof sin) != SOCKET_ERROR) {
          Log("Udp bound to port: %d.\n", port);

@@ -9,7 +9,8 @@
 #define _UDP_MSG_H
 
 #define MAX_COMPRESSED_BITS       4096
-#define UDP_MSG_MAX_PLAYERS          4
+// TODO(amp) : max 4 -> 10
+#define UDP_MSG_MAX_PLAYERS          10
 
 #pragma pack(push, 1)
 
@@ -32,6 +33,8 @@ struct UdpMsg
    };
 
    struct {
+      uint16         from_peer_id;
+      uint16         to_peer_id;
       uint16         magic;
       uint16         sequence_number;
       uint8          type;            /* packet type */

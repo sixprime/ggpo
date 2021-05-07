@@ -14,7 +14,7 @@
 struct GGPOSession {
    virtual ~GGPOSession() { }
    virtual GGPOErrorCode DoPoll(int timeout) { return GGPO_OK; }
-   virtual GGPOErrorCode AddPlayer(GGPOPlayer *player, GGPOPlayerHandle *handle) = 0;
+   virtual GGPOErrorCode AddPlayer(GGPOPlayer *player, GGPOPlayerHandle *handle, GGPOPlayerHandle* local_player_handle) = 0;
    virtual GGPOErrorCode AddLocalInput(GGPOPlayerHandle player, void *values, int size) = 0;
    virtual GGPOErrorCode SyncInput(void *values, int size, int *disconnect_flags) = 0;
    virtual GGPOErrorCode IncrementFrame(void) { return GGPO_OK; }
@@ -27,8 +27,6 @@ struct GGPOSession {
    virtual GGPOErrorCode SetDisconnectTimeout(int timeout) { return GGPO_ERRORCODE_UNSUPPORTED; }
    virtual GGPOErrorCode SetDisconnectNotifyStart(int timeout) { return GGPO_ERRORCODE_UNSUPPORTED; }
 };
-
-typedef struct GGPOSession Quark, IQuarkBackend; /* XXX: nuke this */
 
 #endif
 

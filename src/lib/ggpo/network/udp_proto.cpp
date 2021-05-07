@@ -38,7 +38,8 @@ UdpProtocol::UdpProtocol() :
    _connected(false),
    _next_send_seq(0),
    _next_recv_seq(0),
-   _udp(NULL)
+   _udp(NULL),
+   _peer_id(0)
 {
    _last_sent_input.init(-1, NULL, 1);
    _last_received_input.init(-1, NULL, 1);
@@ -49,7 +50,7 @@ UdpProtocol::UdpProtocol() :
    for (int i = 0; i < ARRAY_SIZE(_peer_connect_status); i++) {
       _peer_connect_status[i].last_frame = -1;
    }
-   memset(&_peer_addr, 0, sizeof _peer_addr);
+   memset(&_relay_addr, 0, sizeof _relay_addr);
    _oo_packet.msg = NULL;
 
    _send_latency = Platform::GetConfigInt("ggpo.network.delay");
@@ -65,17 +66,22 @@ void
 UdpProtocol::Init(Udp *udp,
                   Poll &poll,
                   int queue,
-                  char *ip,
-                  u_short port,
+                  const char *relay_ip,
+                  uint16 relay_port,
+                  uint16 peer_id,
+                  uint16 local_peer_id,
                   UdpMsg::connect_status *status)
 {  
    _udp = udp;
    _queue = queue;
    _local_connect_status = status;
 
-   _peer_addr.sin_family = AF_INET;
-   _peer_addr.sin_port = htons(port);
-   inet_pton(AF_INET, ip, &_peer_addr.sin_addr.s_addr);
+   _relay_addr.sin_family = AF_INET;
+   _relay_addr.sin_port = htons(relay_port);
+   inet_pton(AF_INET, relay_ip, &_relay_addr.sin_addr.s_addr);
+
+   _peer_id = peer_id;
+   _local_peer_id = local_peer_id;
 
    do {
       _magic_number = (uint16)rand();
@@ -280,10 +286,22 @@ UdpProtocol::SendMsg(UdpMsg *msg)
    _last_send_time = Platform::GetCurrentTimeMS();
    _bytes_sent += msg->PacketSize();
 
+   // TOOD(amp): every endpoint has a peer_id.
+   /*if (msg->hdr.type == UdpMsg::Input)
+   {
+       msg->hdr.peer_id = _local_peer_id;
+   }
+   else
+   {
+       msg->hdr.peer_id = _peer_id;
+   }*/
+   msg->hdr.from_peer_id = _local_peer_id;
+   msg->hdr.to_peer_id = _peer_id;
+
    msg->hdr.magic = _magic_number;
    msg->hdr.sequence_number = _next_send_seq++;
 
-   _send_queue.push(QueueEntry(Platform::GetCurrentTimeMS(), _peer_addr, msg));
+   _send_queue.push(QueueEntry(Platform::GetCurrentTimeMS(), _relay_addr, msg));
    PumpSendQueue();
 }
 
@@ -294,8 +312,10 @@ UdpProtocol::HandlesMsg(sockaddr_in &from,
    if (!_udp) {
       return false;
    }
-   return _peer_addr.sin_addr.s_addr == from.sin_addr.s_addr &&
-          _peer_addr.sin_port == from.sin_port;
+
+   return _relay_addr.sin_addr.s_addr == from.sin_addr.s_addr &&
+          msg->hdr.to_peer_id == _local_peer_id &&
+          msg->hdr.from_peer_id == _peer_id;
 }
 
 void
