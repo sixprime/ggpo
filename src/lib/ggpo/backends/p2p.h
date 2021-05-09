@@ -17,13 +17,13 @@
 
 class Peer2PeerBackend : public GGPOSession, IPollSink, Udp::Callbacks {
 public:
-   Peer2PeerBackend(GGPOSessionCallbacks *cb, const char *gamename, const char *relay_ip, uint16 relay_port, int num_players, int input_size);
+   Peer2PeerBackend(GGPOSessionCallbacks *cb, const char *gamename, const char *relay_ip, uint16 relay_port, uint16 local_peer_id, int num_players, int input_size);
    virtual ~Peer2PeerBackend();
 
 
 public:
    virtual GGPOErrorCode DoPoll(int timeout);
-   virtual GGPOErrorCode AddPlayer(GGPOPlayer *player, GGPOPlayerHandle *handle, GGPOPlayerHandle* local_player_handle);
+   virtual GGPOErrorCode AddPlayer(GGPOPlayer *player, GGPOPlayerHandle *handle);
    virtual GGPOErrorCode AddLocalInput(GGPOPlayerHandle player, void *values, int size);
    virtual GGPOErrorCode SyncInput(void *values, int size, int *disconnect_flags);
    virtual GGPOErrorCode IncrementFrame(void);
@@ -46,7 +46,7 @@ protected:
    void CheckInitialSync(void);
    int Poll2Players(int current_frame);
    int PollNPlayers(int current_frame);
-   void AddRemotePlayer(uint16 peer_id, uint16 local_peer_id, int queue);
+   void AddRemotePlayer(uint16 peer_id, int queue);
    GGPOErrorCode AddSpectator(uint16 reportport);
    virtual void OnSyncEvent(Sync::Event &e) { }
    virtual void OnUdpProtocolEvent(UdpProtocol::Event &e, GGPOPlayerHandle handle);
@@ -60,6 +60,7 @@ protected:
    Udp                   _udp;
    const char            *_relay_ip;
    uint16                _relay_port;
+   uint16                _local_peer_id;
    UdpProtocol           *_endpoints;
    UdpProtocol           _spectators[GGPO_MAX_SPECTATORS];
    int                   _num_spectators;

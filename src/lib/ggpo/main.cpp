@@ -35,12 +35,14 @@ ggpo_start_session(GGPOSession **session,
                    int num_players,
                    int input_size,
                    const char *relay_ip,
-                   unsigned short relay_port)
+                   unsigned short relay_port,
+                   unsigned short local_peer_id)
 {
    *session= (GGPOSession *)new Peer2PeerBackend(cb,
                                                  game,
                                                  relay_ip,
                                                  relay_port,
+                                                 local_peer_id,
                                                  num_players,
                                                  input_size);
    return GGPO_OK;
@@ -49,13 +51,12 @@ ggpo_start_session(GGPOSession **session,
 GGPOErrorCode
 ggpo_add_player(GGPOSession *ggpo,
                 GGPOPlayer *player,
-                GGPOPlayerHandle *handle,
-                GGPOPlayerHandle *local_player_handle)
+                GGPOPlayerHandle *handle)
 {
    if (!ggpo) {
       return GGPO_ERRORCODE_INVALID_SESSION;
    }
-   return ggpo->AddPlayer(player, handle, local_player_handle);
+   return ggpo->AddPlayer(player, handle);
 }
 
 

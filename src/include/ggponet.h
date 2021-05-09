@@ -330,7 +330,8 @@ GGPO_API GGPOErrorCode ggpo_start_session(GGPOSession **session,
                                           int num_players,
                                           int input_size,
                                           const char *relay_ip,
-                                          unsigned short relay_port);
+                                          unsigned short relay_port,
+                                          unsigned short local_peer_id);
 
 
 /*
@@ -346,8 +347,7 @@ GGPO_API GGPOErrorCode ggpo_start_session(GGPOSession **session,
  */
 GGPO_API GGPOErrorCode ggpo_add_player(GGPOSession *session,
                                        GGPOPlayer *player,
-                                       GGPOPlayerHandle *handle,
-                                       GGPOPlayerHandle *local_player_handle);
+                                       GGPOPlayerHandle *handle);
 
 
 /*

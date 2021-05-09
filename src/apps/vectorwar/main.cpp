@@ -102,10 +102,10 @@ Syntax()
         L"Could not start", MB_OK);
 }
 
-int main()
-{
-    return wWinMain(GetModuleHandle(NULL), NULL, GetCommandLine(), SW_SHOWNORMAL);
-}
+//int main()
+//{
+//    return wWinMain(GetModuleHandle(NULL), NULL, GetCommandLine(), SW_SHOWNORMAL);
+//}
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR, _In_ int)
 {
@@ -135,19 +135,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR,
 
     // relay ip and port
     char buffer[64] = { 0 };
-    //wcstombs(buffer, __wargv[offset++], ARRAY_SIZE(buffer) - 1);
-    memcpy(buffer, __argv[offset++], ARRAY_SIZE(buffer) - 1);
+    wcstombs(buffer, __wargv[offset++], ARRAY_SIZE(buffer) - 1);
+    //memcpy(buffer, __argv[offset++], ARRAY_SIZE(buffer) - 1);
     char relay_ip[32] = { 0 };
     unsigned short relay_port = 0;
     sscanf(buffer, "%[^:]:%hd", relay_ip, &relay_port);
 
     // num_players
-    //int num_players = _wtoi(__wargv[offset++]);
-    int num_players = atoi(__argv[offset++]);
+    int num_players = _wtoi(__wargv[offset++]);
+    //int num_players = atoi(__argv[offset++]);
 
     // player_position
-    //int player_position = _wtoi(__wargv[offset++]);
-    int player_position = atoi(__argv[offset++]);
+    int player_position = _wtoi(__wargv[offset++]);
+    //int player_position = atoi(__argv[offset++]);
 
     GGPOPlayer players[GGPO_MAX_PLAYERS];
     for (int i = 0; i < num_players; ++i)
@@ -165,7 +165,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR,
     }
 
     int num_spectators = 0;
-    VectorWar_Init(hwnd, relay_ip, relay_port, num_players, players, num_spectators);
+    VectorWar_Init(hwnd, relay_ip, relay_port, (unsigned short)player_position, num_players, players, num_spectators);
 
     RunMainLoop(hwnd);
     VectorWar_Exit();

@@ -63,7 +63,7 @@ public:
    UdpProtocol();
    virtual ~UdpProtocol();
 
-   void Init(Udp *udp, Poll &p, int queue, const char *relay_ip, uint16 relay_port, uint16 peer_id, uint16 local_peer_id, UdpMsg::connect_status *status);
+   void Init(Udp *udp, Poll &p, int queue, const char *relay_ip, uint16 relay_port, uint16 local_peer_id, uint16 remote_peer_id, UdpMsg::connect_status *status);
 
    void Synchronize();
    bool GetPeerConnectStatus(int id, int *frame);
@@ -128,7 +128,7 @@ protected:
     */
    Udp            *_udp;
    sockaddr_in    _relay_addr;
-   uint16         _peer_id;
+   uint16         _remote_peer_id;
    uint16         _local_peer_id;
    uint16         _magic_number;
    int            _queue;

@@ -19,7 +19,7 @@ public:
    virtual ~SyncTestBackend();
 
    virtual GGPOErrorCode DoPoll(int timeout);
-   virtual GGPOErrorCode AddPlayer(GGPOPlayer* player, GGPOPlayerHandle* handle, GGPOPlayerHandle* local_player_handle);
+   virtual GGPOErrorCode AddPlayer(GGPOPlayer* player, GGPOPlayerHandle* handle);
    virtual GGPOErrorCode AddLocalInput(GGPOPlayerHandle player, void *values, int size);
    virtual GGPOErrorCode SyncInput(void *values, int size, int *disconnect_flags);
    virtual GGPOErrorCode IncrementFrame(void);

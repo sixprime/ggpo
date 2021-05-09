@@ -210,7 +210,7 @@ vw_free_buffer(void *buffer)
  * the video renderer and creates a new network session.
  */
 void
-VectorWar_Init(HWND hwnd, const char *relay_ip, unsigned short relay_port, int num_players, GGPOPlayer *players, int num_spectators)
+VectorWar_Init(HWND hwnd, const char *relay_ip, unsigned short relay_port, unsigned short local_peer_id, int num_players, GGPOPlayer *players, int num_spectators)
 {
    GGPOErrorCode result;
    renderer = new GDIRenderer(hwnd);
@@ -232,7 +232,7 @@ VectorWar_Init(HWND hwnd, const char *relay_ip, unsigned short relay_port, int n
 #if defined(SYNC_TEST)
    result = ggpo_start_synctest(&ggpo, &cb, "vectorwar", num_players, sizeof(int), 1);
 #else
-   result = ggpo_start_session(&ggpo, &cb, "vectorwar", num_players, sizeof(int), relay_ip, relay_port);
+   result = ggpo_start_session(&ggpo, &cb, "vectorwar", num_players, sizeof(int), relay_ip, relay_port, local_peer_id);
 #endif
 
    // automatically disconnect clients after 3000 ms and start our count-down timer
@@ -241,20 +241,10 @@ VectorWar_Init(HWND hwnd, const char *relay_ip, unsigned short relay_port, int n
    ggpo_set_disconnect_timeout(ggpo, 3000);
    ggpo_set_disconnect_notify_start(ggpo, 1000);
 
-   GGPOPlayerHandle local_player_handle = 0;
-   for (int i = 0; i < num_players; ++i)
-   {
-       if (players[i].type == GGPO_PLAYERTYPE_LOCAL)
-       {
-           local_player_handle = players[i].player_num;
-           break;
-       }
-   }
-
    int i;
    for (i = 0; i < num_players + num_spectators; i++) {
       GGPOPlayerHandle handle;
-      result = ggpo_add_player(ggpo, players + i, &handle, &local_player_handle);
+      result = ggpo_add_player(ggpo, players + i, &handle);
       ngs.players[i].handle = handle;
       ngs.players[i].type = players[i].type;
       if (players[i].type == GGPO_PLAYERTYPE_LOCAL) {

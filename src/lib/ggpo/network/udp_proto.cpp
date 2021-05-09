@@ -39,7 +39,7 @@ UdpProtocol::UdpProtocol() :
    _next_send_seq(0),
    _next_recv_seq(0),
    _udp(NULL),
-   _peer_id(0)
+   _remote_peer_id(0)
 {
    _last_sent_input.init(-1, NULL, 1);
    _last_received_input.init(-1, NULL, 1);
@@ -68,8 +68,8 @@ UdpProtocol::Init(Udp *udp,
                   int queue,
                   const char *relay_ip,
                   uint16 relay_port,
-                  uint16 peer_id,
                   uint16 local_peer_id,
+                  uint16 remote_peer_id,
                   UdpMsg::connect_status *status)
 {  
    _udp = udp;
@@ -80,7 +80,7 @@ UdpProtocol::Init(Udp *udp,
    _relay_addr.sin_port = htons(relay_port);
    inet_pton(AF_INET, relay_ip, &_relay_addr.sin_addr.s_addr);
 
-   _peer_id = peer_id;
+   _remote_peer_id = remote_peer_id;
    _local_peer_id = local_peer_id;
 
    do {
@@ -286,17 +286,8 @@ UdpProtocol::SendMsg(UdpMsg *msg)
    _last_send_time = Platform::GetCurrentTimeMS();
    _bytes_sent += msg->PacketSize();
 
-   // TOOD(amp): every endpoint has a peer_id.
-   /*if (msg->hdr.type == UdpMsg::Input)
-   {
-       msg->hdr.peer_id = _local_peer_id;
-   }
-   else
-   {
-       msg->hdr.peer_id = _peer_id;
-   }*/
    msg->hdr.from_peer_id = _local_peer_id;
-   msg->hdr.to_peer_id = _peer_id;
+   msg->hdr.to_peer_id = _remote_peer_id;
 
    msg->hdr.magic = _magic_number;
    msg->hdr.sequence_number = _next_send_seq++;
@@ -315,7 +306,7 @@ UdpProtocol::HandlesMsg(sockaddr_in &from,
 
    return _relay_addr.sin_addr.s_addr == from.sin_addr.s_addr &&
           msg->hdr.to_peer_id == _local_peer_id &&
-          msg->hdr.from_peer_id == _peer_id;
+          msg->hdr.from_peer_id == _remote_peer_id;
 }
 
 void

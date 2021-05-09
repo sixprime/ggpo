@@ -15,6 +15,7 @@ Peer2PeerBackend::Peer2PeerBackend(GGPOSessionCallbacks *cb,
                                    const char *gamename,
                                    const char *relay_ip,
                                    uint16 relay_port,
+                                   uint16 local_peer_id,
                                    int num_players,
                                    int input_size) :
     _num_players(num_players),
@@ -25,7 +26,8 @@ Peer2PeerBackend::Peer2PeerBackend(GGPOSessionCallbacks *cb,
     _num_spectators(0),
     _next_spectator_frame(0),
     _relay_ip(relay_ip),
-    _relay_port(relay_port)
+    _relay_port(relay_port),
+    _local_peer_id(local_peer_id)
 {
    _callbacks = *cb;
    _synchronizing = true;
@@ -64,14 +66,14 @@ Peer2PeerBackend::~Peer2PeerBackend()
 }
 
 void
-Peer2PeerBackend::AddRemotePlayer(uint16 peer_id, uint16 local_peer_id, int queue)
+Peer2PeerBackend::AddRemotePlayer(uint16 remote_peer_id, int queue)
 {
    /*
     * Start the state machine (xxx: no)
     */
    _synchronizing = true;
 
-   _endpoints[queue].Init(&_udp, _poll, queue, _relay_ip, _relay_port, peer_id, local_peer_id, _local_connect_status);
+   _endpoints[queue].Init(&_udp, _poll, queue, _relay_ip, _relay_port, _local_peer_id, remote_peer_id, _local_connect_status);
    _endpoints[queue].SetDisconnectTimeout(_disconnect_timeout);
    _endpoints[queue].SetDisconnectNotifyStart(_disconnect_notify_start);
    _endpoints[queue].Synchronize();
@@ -244,8 +246,7 @@ int Peer2PeerBackend::PollNPlayers(int current_frame)
 
 GGPOErrorCode
 Peer2PeerBackend::AddPlayer(GGPOPlayer *player,
-                            GGPOPlayerHandle *handle,
-                            GGPOPlayerHandle *local_player_handle)
+                            GGPOPlayerHandle *handle)
 {
     // TODO(amp) : spectator mode
    /*if (player->type == GGPO_PLAYERTYPE_SPECTATOR) {
@@ -259,7 +260,7 @@ Peer2PeerBackend::AddPlayer(GGPOPlayer *player,
    *handle = QueueToPlayerHandle(queue);
 
    if (player->type == GGPO_PLAYERTYPE_REMOTE) {
-      AddRemotePlayer((unsigned short)(player->player_num), (unsigned short)(*local_player_handle), queue);
+      AddRemotePlayer((unsigned short)(player->player_num), queue);
    }
    return GGPO_OK;
 }
