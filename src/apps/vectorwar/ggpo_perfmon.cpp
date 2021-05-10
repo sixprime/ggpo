@@ -8,8 +8,7 @@
 
 #define MAX_GRAPH_SIZE      4096
 #define MAX_FAIRNESS          20
-// TODO(amp) : max 4 -> 10
-#define MAX_PLAYERS            10
+#define MAX_PLAYERS           10
 
 static HWND _hwnd = NULL;
 static HWND _dialog = NULL;

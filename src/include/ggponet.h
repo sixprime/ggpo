@@ -41,8 +41,7 @@ extern "C" {
 #  define GGPO_API
 #endif
 
-// TODO(amp) : changed max players from 4 -> 10
-#define GGPO_MAX_PLAYERS                  10
+#define GGPO_MAX_PLAYERS                 10
 #define GGPO_MAX_PREDICTION_FRAMES        8
 #define GGPO_MAX_SPECTATORS              32
 
@@ -71,22 +70,12 @@ typedef enum {
  * player_num: The player number.  Should be between 1 and the number of players
  *       In the game (e.g. in a 2 player game, either 1 or 2).
  *
- * If type == GGPO_PLAYERTYPE_REMOTE:
- * 
- * u.remote.ip_address:  The ip address of the ggpo session which will host this
- *       player.
- *
- * u.remote.port: The port where udp packets should be sent to reach this player.
- *       All the local inputs for this session will be sent to this player at
- *       ip_address:port.
- *
  */
 
 typedef struct GGPOPlayer {
    int               size;
    GGPOPlayerType    type;
    int               player_num;
-   //unsigned short    port;
 } GGPOPlayer;
 
 typedef struct GGPOLocalEndpoint {
@@ -375,11 +364,11 @@ GGPO_API GGPOErrorCode ggpo_add_player(GGPOSession *session,
  *
  */
 GGPO_API GGPOErrorCode ggpo_start_synctest(GGPOSession **session,
-                                                   GGPOSessionCallbacks *cb,
-                                                   char *game,
-                                                   int num_players,
-                                                   int input_size,
-                                                   int frames);
+                                           GGPOSessionCallbacks *cb,
+                                           char *game,
+                                           int num_players,
+                                           int input_size,
+                                           int frames);
 
 
 /*
@@ -407,13 +396,13 @@ GGPO_API GGPOErrorCode ggpo_start_synctest(GGPOSession **session,
  * host_port - The port of the session on the host
  */
 GGPO_API GGPOErrorCode ggpo_start_spectating(GGPOSession **session,
-                                                     GGPOSessionCallbacks *cb,
-                                                     const char *game,
-                                                     int num_players,
-                                                     int input_size,
-                                                     unsigned short local_port,
-                                                     char *host_ip,
-                                                     unsigned short host_port);
+                                             GGPOSessionCallbacks* cb,
+                                             const char* game,
+                                             int num_players,
+                                             int input_size,
+                                             unsigned short local_port,
+                                             char* host_ip,
+                                             unsigned short host_port);
 
 /*
  * ggpo_close_session --

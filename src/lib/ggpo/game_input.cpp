@@ -60,12 +60,14 @@ GameInput::desc(char *buf, size_t buf_size, bool show_frame) const
 void
 GameInput::log(char *prefix, bool show_frame) const
 {
-	char buf[1024];
-   size_t c = strlen(prefix);
-	strncpy(buf, prefix, sizeof(buf));
-	desc(buf + c, ARRAY_SIZE(buf) - c, show_frame);
-   strncat(buf, "\n", ARRAY_SIZE(buf) - strlen(buf));
-	Log(buf);
+#if 0
+    char buf[1024];
+    size_t c = strlen(prefix);
+    strncpy(buf, prefix, sizeof(buf));
+    desc(buf + c, ARRAY_SIZE(buf) - c, show_frame);
+    strncat(buf, "\n", ARRAY_SIZE(buf) - strlen(buf));
+    Log(buf);
+#endif
 }
 
 bool

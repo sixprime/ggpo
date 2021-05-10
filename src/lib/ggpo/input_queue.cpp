@@ -307,14 +307,16 @@ InputQueue::AdvanceQueueHead(int frame)
 void
 InputQueue::Log(const char *fmt, ...)
 {
-   char buf[1024];
-   size_t offset;
-   va_list args;
+#if 0
+    char buf[1024];
+    size_t offset;
+    va_list args;
 
-   offset = snprintf(buf, ARRAY_SIZE(buf), "input q%d | ", _id);
-   va_start(args, fmt);
-   vsnprintf(buf + offset, ARRAY_SIZE(buf) - offset - 1, fmt, args);
-   buf[ARRAY_SIZE(buf)-1] = '\0';
-   ::Log(buf);
-   va_end(args);
+    offset = snprintf(buf, ARRAY_SIZE(buf), "input q%d | ", _id);
+    va_start(args, fmt);
+    vsnprintf(buf + offset, ARRAY_SIZE(buf) - offset - 1, fmt, args);
+    buf[ARRAY_SIZE(buf) - 1] = '\0';
+    ::Log(buf);
+    va_end(args);
+#endif
 }

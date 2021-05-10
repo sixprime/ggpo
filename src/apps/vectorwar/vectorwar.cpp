@@ -424,7 +424,7 @@ VectorWar_RunFrame(HWND hwnd)
      if (GGPO_SUCCEEDED(result)) {
          // inputs[0] and inputs[1] contain the inputs for p1 and p2.  Advance
          // the game by 1 frame using those inputs.
-         printf("received inputs from P1=%d, P2=%d, P3=%d\n", inputs[0] > 0, inputs[1] > 0, inputs[2] > 0);
+         //printf("received inputs from P1=%d, P2=%d, P3=%d\n", inputs[0] > 0, inputs[1] > 0, inputs[2] > 0);
          VectorWar_AdvanceFrame(inputs, disconnect_flags);
      }
   }

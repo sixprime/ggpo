@@ -23,7 +23,6 @@
 #define BULLET_COOLDOWN         8
 #define BULLET_DAMAGE           10
 
-// TODO(amp) : max 4 -> 10
 #define MAX_SHIPS               10
 
 struct Position {

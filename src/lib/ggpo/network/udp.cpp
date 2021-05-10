@@ -120,6 +120,7 @@ Udp::OnLoopPoll(void *cookie)
 void
 Udp::Log(const char *fmt, ...)
 {
+#if 0
    char buf[1024];
    size_t offset;
    va_list args;
@@ -131,4 +132,5 @@ Udp::Log(const char *fmt, ...)
    buf[ARRAY_SIZE(buf)-1] = '\0';
    ::Log(buf);
    va_end(args);
+#endif
 }

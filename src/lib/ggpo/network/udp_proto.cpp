@@ -412,6 +412,7 @@ UdpProtocol::GetPeerConnectStatus(int id, int *frame)
 void
 UdpProtocol::Log(const char *fmt, ...)
 {
+#if 0
    char buf[1024];
    size_t offset;
    va_list args;
@@ -423,11 +424,13 @@ UdpProtocol::Log(const char *fmt, ...)
    buf[ARRAY_SIZE(buf)-1] = '\0';
    ::Log(buf);
    va_end(args);
+#endif
 }
 
 void
 UdpProtocol::LogMsg(const char *prefix, UdpMsg *msg)
 {
+#if 0
    switch (msg->hdr.type) {
    case UdpMsg::SyncRequest:
       Log("%s sync-request (%d).\n", prefix,
@@ -455,16 +458,19 @@ UdpProtocol::LogMsg(const char *prefix, UdpMsg *msg)
    default:
       ASSERT(FALSE && "Unknown UdpMsg type.");
    }
+#endif
 }
 
 void
 UdpProtocol::LogEvent(const char *prefix, const UdpProtocol::Event &evt)
 {
+#if 0
    switch (evt.type) {
    case UdpProtocol::Event::Synchronzied:
       Log("%s (event: Synchronzied).\n", prefix);
       break;
    }
+#endif
 }
 
 bool
