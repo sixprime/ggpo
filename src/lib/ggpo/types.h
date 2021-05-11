@@ -19,8 +19,9 @@
  *   4201 - nonstandard extension used : nameless struct/union
  *   4389 - '!=' : signed/unsigned mismatch
  *   4800 - 'int' : forcing value to bool 'true' or 'false' (performance warning)
+ *   4996 - _CRT_SECURE_NO_WARNINGS
  */
-#pragma warning(disable: 4018 4100 4127 4201 4389 4800)
+#pragma warning(disable: 4018 4100 4127 4201 4389 4800 4996)
 
 /*
  * Simple types
@@ -29,7 +30,7 @@ typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;
 typedef unsigned char byte;
-typedef char int8;
+typedef signed char int8;
 typedef short int16;
 typedef int int32;
 
@@ -38,10 +39,8 @@ typedef int int32;
  */
 #if defined(_WINDOWS)
 #  include "platform_windows.h"
-#elif defined(__APPLE__) or defined(__GNUC__)
+#elif defined(__APPLE__) || defined(__GNUC__)
 #  include "platform_unix.h"
-#else
-#  error Unsupported platform
 #endif
 
 #include "log.h"
@@ -55,7 +54,7 @@ typedef int int32;
    do {                                                     \
       if (!(x)) {                                           \
          char assert_buf[1024];                             \
-         snprintf(assert_buf, sizeof(assert_buf) - 1, "Assertion: %s @ %s:%d (pid:%d)", #x, __FILE__, __LINE__, Platform::GetProcessID()); \
+         snprintf(assert_buf, sizeof(assert_buf) - 1, "Assertion: %s @ %s:%d (pid:%ld)", #x, __FILE__, __LINE__, Platform::GetProcessID()); \
          Log("%s\n", assert_buf);                           \
          Log("\n");                                         \
          Log("\n");                                         \

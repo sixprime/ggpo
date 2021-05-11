@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef __GNUC__
+
 #ifndef _GGPO_UNIX_H_
 #define _GGPO_UNIX_H_
 
@@ -58,4 +60,6 @@ public:  // functions
    static void CreateDir(const char* pathname);
 };
 
-#endif
+#endif // !_GGPO_UNIX_H_
+
+#endif // __GNUC__

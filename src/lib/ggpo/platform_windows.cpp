@@ -5,13 +5,14 @@
  * in the LICENSE file.
  */
 
+#ifdef _WINDOWS
+
 #include "platform_windows.h"
-#include "types.h"
 
 int Platform::GetConfigInt(const char* name)
 {
    char buf[1024];
-   if (GetEnvironmentVariable(name, buf, ARRAY_SIZE(buf)) == 0) {
+   if (GetEnvironmentVariableA(name, buf, ARRAY_SIZE(buf)) == 0) {
       return 0;
    }
    return atoi(buf);
@@ -20,7 +21,7 @@ int Platform::GetConfigInt(const char* name)
 bool Platform::GetConfigBool(const char* name)
 {
    char buf[1024];
-   if (GetEnvironmentVariable(name, buf, ARRAY_SIZE(buf)) == 0) {
+   if (GetEnvironmentVariableA(name, buf, ARRAY_SIZE(buf)) == 0) {
       return false;
    }
    return atoi(buf) != 0 || _stricmp(buf, "true") == 0;
@@ -41,9 +42,4 @@ void Platform::CreateDir(const char* pathname)
    CreateDirectoryA(pathname, NULL);
 }
 
-BOOL WINAPI
-DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
-{
-   srand(Platform::GetCurrentTimeMS() + Platform::GetProcessID());
-   return TRUE;
-}
+#endif // _WINDOWS

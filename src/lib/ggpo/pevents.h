@@ -7,7 +7,7 @@
 
 #pragma once
 
-#if defined(_WIN32) && !defined(CreateEvent)
+#if defined(_WINDOWS) && !defined(CreateEvent)
 #error Must include Windows.h prior to including pevents.h!
 #endif
 #ifndef WAIT_TIMEOUT

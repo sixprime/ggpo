@@ -5,8 +5,8 @@
  * in the LICENSE file.
  */
 
-#include "types.h"
 #include "udp_proto.h"
+#include "types.h"
 #include "bitvector.h"
 
 static const int UDP_HEADER_SIZE = 28;     /* Size of IP + UDP headers */
@@ -21,25 +21,28 @@ static const int UDP_SHUTDOWN_TIMER = 5000;
 static const int MAX_SEQ_DISTANCE = (1 << 15);
 
 UdpProtocol::UdpProtocol() :
-   _local_frame_advantage(0),
-   _remote_frame_advantage(0),
+   _udp(NULL),
+   _remote_peer_id(0),
+   _local_peer_id(0),
+   _magic_number(0), 
    _queue(-1),
-   _magic_number(0),
    _remote_magic_number(0),
+   _connected(false),
    _packets_sent(0),
    _bytes_sent(0),
    _stats_start_time(0),
+   _local_frame_advantage(0),
+   _remote_frame_advantage(0),
    _last_send_time(0),
    _shutdown_timeout(0),
+   _disconnect_event_sent(false),
    _disconnect_timeout(0),
    _disconnect_notify_start(0),
    _disconnect_notify_sent(false),
-   _disconnect_event_sent(false),
-   _connected(false),
    _next_send_seq(0),
-   _next_recv_seq(0),
-   _udp(NULL),
-   _remote_peer_id(0)
+   _next_recv_seq(0)
+   
+   
 {
    _last_sent_input.init(-1, NULL, 1);
    _last_received_input.init(-1, NULL, 1);
@@ -456,7 +459,7 @@ UdpProtocol::LogMsg(const char *prefix, UdpMsg *msg)
       Log("%s input ack.\n", prefix);
       break;
    default:
-      ASSERT(FALSE && "Unknown UdpMsg type.");
+      ASSERT(false && "Unknown UdpMsg type.");
    }
 #endif
 }
@@ -476,7 +479,7 @@ UdpProtocol::LogEvent(const char *prefix, const UdpProtocol::Event &evt)
 bool
 UdpProtocol::OnInvalid(UdpMsg *msg, int len)
 {
-   ASSERT(FALSE && "Invalid msg in UdpProtocol");
+   ASSERT(false && "Invalid msg in UdpProtocol");
    return false;
 }
 

@@ -5,16 +5,24 @@
  * in the LICENSE file.
  */
 
+#ifdef _WINDOWS
+
 #ifndef _GGPO_WINDOWS_H_
 #define _GGPO_WINDOWS_H_
 
-#define _CRT_SECURE_NO_WARNINGS
+#ifdef UNREAL_HOST
+// UE4: allow Windows platform types to avoid naming collisions
+#	include "Windows/AllowWindowsPlatformTypes.h"
+#	include "Windows/prewindowsapi.h"
+#endif
 
 #include <winsock2.h>
 #include <WS2tcpip.h>
 #include <windows.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <timeapi.h>
+#include "types.h"
 
 class Platform {
 public:  // types
@@ -32,4 +40,11 @@ public:  // functions
    static void CreateDir(const char* pathname);
 };
 
+#ifdef UNREAL_HOST
+// UE4: disallow windows platform types
+#	include "Windows/PostWindowsApi.h"
+#	include "Windows/HideWindowsPlatformTypes.h"
 #endif
+
+#endif // !_GGPO_WINDOWS_H_
+#endif // _WINDOWS

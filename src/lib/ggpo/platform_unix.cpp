@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef __GNUC__
+
 #include "platform_unix.h"
 
 int Platform::GetConfigInt(const char *name)
@@ -53,3 +55,5 @@ static void __attribute__((constructor)) DllMain()
 {
   srand(Platform::GetCurrentTimeMS() + Platform::GetProcessID());
 }
+
+#endif // __GNUC__

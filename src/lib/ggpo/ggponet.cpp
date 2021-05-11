@@ -5,27 +5,31 @@
  * in the LICENSE file.
  */
 
+#include "ggponet.h"
 #include "types.h"
 #include "backends/p2p.h"
 #include "backends/synctest.h"
 #include "backends/spectator.h"
-#include "ggponet.h"
 
 void
 ggpo_log(GGPOSession *ggpo, const char *fmt, ...)
 {
+#if 0
    va_list args;
    va_start(args, fmt);
    ggpo_logv(ggpo, fmt, args);
    va_end(args);
+#endif
 }
 
 void
 ggpo_logv(GGPOSession *ggpo, const char *fmt, va_list args)
 {
+#if 0
    if (ggpo) {
       ggpo->Logv(fmt, args);
    }
+#endif
 }
 
 GGPOErrorCode

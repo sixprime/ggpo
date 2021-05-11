@@ -5,7 +5,7 @@
  * This code is released under the terms of the MIT License
  */
 
-#ifndef _WIN32
+#ifndef _WINDOWS
 
 #include "pevents.h"
 #include <assert.h>
@@ -493,9 +493,15 @@ namespace neosmart {
 #endif
 } // namespace neosmart
 
-#else //_WIN32
+#else // !_WINDOWS
 
-#include <Windows.h>
+#ifdef UNREAL_HOST
+// UE4: allow Windows platform types to avoid naming collisions
+#	include "Windows/AllowWindowsPlatformTypes.h"
+#	include "Windows/prewindowsapi.h"
+#endif
+
+#include <windows.h>
 #include "pevents.h"
 
 namespace neosmart {
@@ -516,7 +522,7 @@ namespace neosmart {
         if (milliseconds == ((uint64_t)-1) || (milliseconds >> 32) == 0) {
             result = WaitForSingleObject(handle, static_cast<uint32_t>(milliseconds));
         } else {
-            // Cannot wait for 0xFFFFFFFF because that means infinity to WIN32
+			// Cannot wait for 0xFFFFFFFF because that means infinity to _WINDOWS
             uint32_t waitUnit = (INFINITE - 1);
             uint64_t rounds = milliseconds / waitUnit;
             uint32_t remainder = milliseconds % waitUnit;
@@ -566,12 +572,12 @@ namespace neosmart {
             result = WaitForMultipleObjects(count, handles, waitAll,
                                             static_cast<uint32_t>(milliseconds));
         } else {
-            // Cannot wait for 0xFFFFFFFF because that means infinity to WIN32
+            // Cannot wait for 0xFFFFFFFF because that means infinity to _WINDOWS
             uint32_t waitUnit = (INFINITE - 1);
             uint64_t rounds = milliseconds / waitUnit;
             uint32_t remainder = milliseconds % waitUnit;
 
-            uint32_t result = WaitForMultipleObjects(count, handles, waitAll, remainder);
+            result = WaitForMultipleObjects(count, handles, waitAll, remainder);
             while (result == WAIT_TIMEOUT && rounds-- != 0) {
                 result = WaitForMultipleObjects(count, handles, waitAll, waitUnit);
             }
@@ -600,4 +606,10 @@ namespace neosmart {
 #endif
 } // namespace neosmart
 
-#endif //_WIN32
+#ifdef UNREAL_HOST
+// UE4: disallow windows platform types
+#	include "Windows/PostWindowsApi.h"
+#	include "Windows/HideWindowsPlatformTypes.h"
+#endif
+
+#endif // !_WINDOWS

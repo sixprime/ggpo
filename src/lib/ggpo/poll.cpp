@@ -5,21 +5,21 @@
  * in the LICENSE file.
  */
 
-#include "types.h"
 #include "poll.h"
+#include "types.h"
 
-#ifndef _WIN32
+#ifndef _WINDOWS
 using namespace neosmart;
 #endif
 
 Poll::Poll(void) :
-   _handle_count(0),
-   _start_time(0)
+   _start_time(0),
+   _handle_count(0)
 {
    /*
     * Create a dummy handle to simplify things.
     */
-#ifdef _WIN32
+#ifdef _WINDOWS
    _handles[_handle_count++] = CreateEvent(NULL, true, false, NULL);
 #else
    _handles[_handle_count++] = CreateEvent(true, false);
@@ -76,7 +76,7 @@ Poll::Pump(int timeout)
       timeout = MIN(timeout, maxwait);
    }
 
-#ifdef _WIN32
+#ifdef _WINDOWS
    res = WaitForMultipleObjects(_handle_count, _handles, false, timeout);
 #else
    res = WaitForMultipleEvents(_handles, _handle_count, false, timeout);
