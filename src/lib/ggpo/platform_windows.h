@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifdef _WINDOWS
 
 #ifndef _GGPO_WINDOWS_H_
@@ -48,3 +50,5 @@ public:  // functions
 
 #endif // !_GGPO_WINDOWS_H_
 #endif // _WINDOWS
+
+#endif // ENABLE_GGPO

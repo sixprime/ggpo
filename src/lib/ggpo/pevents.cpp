@@ -5,6 +5,8 @@
  * This code is released under the terms of the MIT License
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _WINDOWS
 
 #include "pevents.h"
@@ -613,3 +615,5 @@ namespace neosmart {
 #endif
 
 #endif // !_WINDOWS
+
+#endif // ENABLE_GGPO

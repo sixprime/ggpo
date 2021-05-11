@@ -5,7 +5,10 @@
  * This code is released under the terms of the MIT License
  */
 
-#pragma once
+#ifdef ENABLE_GGPO
+
+#ifndef _PEVENTS_H
+#define _PEVENTS_H
 
 #if defined(_WINDOWS) && !defined(CreateEvent)
 #error Must include Windows.h prior to including pevents.h!
@@ -40,3 +43,7 @@ namespace neosmart {
     int PulseEvent(neosmart_event_t event);
 #endif
 } // namespace neosmart
+
+#endif // _PEVENTS_H
+
+#endif // ENABLE_GGPO

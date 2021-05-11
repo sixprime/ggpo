@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _BACKEND_H
 #define _BACKEND_H
 
@@ -30,3 +32,4 @@ struct GGPOSession {
 
 #endif
 
+#endif // ENABLE_GGPO

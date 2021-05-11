@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _SYNCTEST_H
 #define _SYNCTEST_H
 
@@ -57,3 +59,4 @@ protected:
 
 #endif
 
+#endif // ENABLE_GGPO

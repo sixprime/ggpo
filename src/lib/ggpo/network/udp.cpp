@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "udp.h"
 #include "types.h"
 
@@ -134,3 +136,5 @@ Udp::Log(const char *fmt, ...)
    va_end(args);
 #endif
 }
+
+#endif // ENABLE_GGPO

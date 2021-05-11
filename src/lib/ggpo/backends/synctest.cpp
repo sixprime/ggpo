@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "synctest.h"
 
 SyncTestBackend::SyncTestBackend(GGPOSessionCallbacks *cb,
@@ -214,3 +216,5 @@ SyncTestBackend::LogSaveStates(SavedInfo &info)
    snprintf(filename, ARRAY_SIZE(filename), "synclogs\\state-%04d-replay.log", _sync.GetFrameCount());
    _callbacks.log_game_state(filename, _sync.GetLastSavedFrame().buf, _sync.GetLastSavedFrame().cbuf);
 }
+
+#endif // ENABLE_GGPO

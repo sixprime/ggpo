@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifdef __GNUC__
 
 #include "platform_unix.h"
@@ -57,3 +59,5 @@ static void __attribute__((constructor)) DllMain()
 }
 
 #endif // __GNUC__
+
+#endif // ENABLE_GGPO

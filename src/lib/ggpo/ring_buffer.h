@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _RING_BUFFER_H
 #define _RING_BUFFER_H
 
@@ -58,3 +60,5 @@ protected:
 };
 
 #endif
+
+#endif // ENABLE_GGPO

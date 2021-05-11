@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _TIMESYNC_H
 #define _TIMESYNC_H
 
@@ -32,3 +34,5 @@ protected:
 };
 
 #endif
+
+#endif // ENABLE_GGPO

@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "udp_proto.h"
 #include "types.h"
 #include "bitvector.h"
@@ -779,3 +781,5 @@ UdpProtocol::ClearSendQueue()
       _send_queue.pop();
    }
 }
+
+#endif // ENABLE_GGPO

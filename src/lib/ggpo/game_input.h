@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _GAMEINPUT_H
 #define _GAMEINPUT_H
 
@@ -38,3 +40,5 @@ struct GameInput {
 };
 
 #endif
+
+#endif // ENABLE_GGPO

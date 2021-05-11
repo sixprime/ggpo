@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "poll.h"
 #include "types.h"
 
@@ -122,3 +124,5 @@ Poll::ComputeWaitTime(int elapsed)
    }
    return waitTime;
 }
+
+#endif // ENABLE_GGPO

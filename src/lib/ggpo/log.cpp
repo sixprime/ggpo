@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "log.h"
 #include "types.h"
 
@@ -66,3 +68,4 @@ void Logv(FILE *fp, const char *fmt, va_list args)
 #endif
 }
 
+#endif // ENABLE_GGPO

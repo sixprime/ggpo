@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _SYNC_H
 #define _SYNC_H
 
@@ -102,3 +104,4 @@ protected:
 
 #endif
 
+#endif // ENABLE_GGPO

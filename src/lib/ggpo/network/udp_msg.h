@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _UDP_MSG_H
 #define _UDP_MSG_H
 
@@ -107,3 +109,5 @@ public:
 #pragma pack(pop)
 
 #endif
+
+#endif // ENABLE_GGPO

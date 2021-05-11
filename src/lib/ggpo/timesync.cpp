@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "timesync.h"
 
 TimeSync::TimeSync()
@@ -83,3 +85,5 @@ TimeSync::recommend_frame_wait_duration(bool require_idle_input)
    // Success!!! Recommend the number of frames to sleep and adjust
    return MIN(sleep_frames, MAX_FRAME_ADVANTAGE);
 }
+
+#endif // ENABLE_GGPO

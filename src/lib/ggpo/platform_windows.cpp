@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifdef _WINDOWS
 
 #include "platform_windows.h"
@@ -43,3 +45,5 @@ void Platform::CreateDir(const char* pathname)
 }
 
 #endif // _WINDOWS
+
+#endif // ENABLE_GGPO

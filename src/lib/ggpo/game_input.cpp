@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "game_input.h"
 #include "types.h"
 #include "log.h"
@@ -88,3 +90,4 @@ GameInput::equal(GameInput &other, bool bitsonly)
           memcmp(bits, other.bits, size) == 0;
 }
 
+#endif // ENABLE_GGPO

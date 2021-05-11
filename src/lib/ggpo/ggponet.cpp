@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "ggponet.h"
 #include "types.h"
 #include "backends/p2p.h"
@@ -207,3 +209,4 @@ GGPOErrorCode ggpo_start_spectating(GGPOSession **session,
    return GGPO_OK;
 }
 
+#endif // ENABLE_GGPO

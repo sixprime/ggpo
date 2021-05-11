@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _LOG_H
 #define _LOG_H
 
@@ -18,3 +20,5 @@ extern void LogFlush();
 extern void LogFlushOnLog(bool flush);
 
 #endif
+
+#endif // ENABLE_GGPO

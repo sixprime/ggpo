@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _INPUT_QUEUE_H
 #define _INPUT_QUEUE_H
 
@@ -56,5 +58,4 @@ protected:
 
 #endif
 
-
-
+#endif // ENABLE_GGPO

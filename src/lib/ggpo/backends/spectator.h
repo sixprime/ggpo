@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _SPECTATOR_H
 #define _SPECTATOR_H
 
@@ -57,3 +59,5 @@ protected:
 };
 
 #endif
+
+#endif // ENABLE_GGPO

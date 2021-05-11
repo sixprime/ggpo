@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "spectator.h"
 
 SpectatorBackend::SpectatorBackend(GGPOSessionCallbacks *cb,
@@ -173,3 +175,4 @@ SpectatorBackend::OnMsg(sockaddr_in &from, UdpMsg *msg, int len)
    }
 }
 
+#endif // ENABLE_GGPO

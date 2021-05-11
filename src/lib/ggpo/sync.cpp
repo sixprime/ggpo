@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "sync.h"
 
 Sync::Sync(UdpMsg::connect_status *connect_status) :
@@ -301,4 +303,4 @@ Sync::GetEvent(Event &e)
    return false;
 }
 
-
+#endif // ENABLE_GGPO

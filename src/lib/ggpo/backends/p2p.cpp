@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "p2p.h"
 
 static const int RECOMMENDATION_INTERVAL           = 240;
@@ -630,3 +632,5 @@ Peer2PeerBackend::CheckInitialSync()
       _synchronizing = false;
    }
 }
+
+#endif // ENABLE_GGPO

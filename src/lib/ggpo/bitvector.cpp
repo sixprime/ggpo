@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #include "bitvector.h"
 #include "types.h"
 
@@ -53,3 +55,4 @@ BitVector_ReadNibblet(uint8 *vector, int *offset)
    return nibblet;
 }
 
+#endif // ENABLE_GGPO

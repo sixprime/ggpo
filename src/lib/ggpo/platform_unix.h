@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifdef __GNUC__
 
 #ifndef _GGPO_UNIX_H_
@@ -63,3 +65,5 @@ public:  // functions
 #endif // !_GGPO_UNIX_H_
 
 #endif // __GNUC__
+
+#endif // ENABLE_GGPO

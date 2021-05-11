@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _STATIC_BUFFER_H
 #define _STATIC_BUFFER_H
 
@@ -38,3 +40,5 @@ protected:
 };
 
 #endif
+
+#endif // ENABLE_GGPO

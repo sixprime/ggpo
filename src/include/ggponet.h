@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _GGPONET_H_
 #define _GGPONET_H_
 
@@ -561,3 +563,5 @@ GGPO_API void ggpo_logv(GGPOSession *,
 #endif
 
 #endif
+
+#endif // ENABLE_GGPO

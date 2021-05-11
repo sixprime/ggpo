@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _TYPES_H
 #define _TYPES_H
 /*
@@ -81,3 +83,5 @@ typedef int int32;
 #endif
 
 #endif // _TYPES_H
+
+#endif // ENABLE_GGPO

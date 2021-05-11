@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _POLL_H
 #define _POLL_H
 
@@ -62,3 +64,5 @@ protected:
 };
 
 #endif
+
+#endif // ENABLE_GGPO

@@ -5,6 +5,8 @@
  * in the LICENSE file.
  */
 
+#ifdef ENABLE_GGPO
+
 #ifndef _BITVECTOR_H
 #define _BITVECTOR_H
 
@@ -19,3 +21,5 @@ int BitVector_ReadBit(uint8 *vector, int *offset);
 int BitVector_ReadNibblet(uint8 *vector, int *offset);
 
 #endif // _BITVECTOR_H
+
+#endif // ENABLE_GGPO
