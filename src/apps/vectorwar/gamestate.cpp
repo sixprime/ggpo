@@ -129,6 +129,11 @@ void GameState::MoveShip(int which, double heading, double thrust, int fire)
          ship->velocity.dy = (ship->velocity.dy * SHIP_MAX_THRUST) / mag;
       }
    }
+   else
+   {
+       ship->velocity.dx = 0.0;
+       ship->velocity.dy = 0.0;
+   }
    ggpo_log(ggpo, "new ship velocity: (dx:%.4f dy:%2.f).\n", ship->velocity.dx, ship->velocity.dy);
 
    ship->position.x += ship->velocity.dx;
